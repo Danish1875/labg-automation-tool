@@ -1,0 +1,2 @@
+create a folder of the lab here (example: storageAcc) and include the screenshots 
+that will be referenced in the final template in this directory

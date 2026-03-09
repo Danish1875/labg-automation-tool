@@ -1,0 +1,3 @@
+Include screenshots you want to provide to the AI for context on generation of steps
+
+Use Snagit tool with appropriate numerical system of each click
