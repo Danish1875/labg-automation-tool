@@ -1,0 +1,42 @@
+# The biggest reliability improvement will come from YAML validation, not prompting the AI.
+
+# LLMs follow structure 70–80% of the time, but validation makes it close to deterministic.
+
+lab_metadata:
+  required: true
+  fields:
+    title: true
+    difficulty: true
+    duration: true
+    author: false
+
+sections:
+  required_order:
+    - Objective
+    - Prerequisites
+    - Steps
+    - Validation
+
+steps:
+  numbering: true
+  minimum_steps: 1
+  screenshot_required: false
+
+code_blocks:
+  enabled: true
+  allowed_languages:
+    - bash
+    - powershell
+    - azurecli
+    - json
+    - python
+    - C#
+
+images:
+  allowed: true
+  path: "../assets/"
+  format: png
+
+validation_rules:
+  require_code_block_for_cli_steps: true
+  require_descriptive_step_titles: true
