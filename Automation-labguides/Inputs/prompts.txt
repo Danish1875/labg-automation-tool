@@ -1,68 +1,50 @@
-# ─────────────────────────────────────────────────────────────────────────────
-# CloudLabs Lab Guide Generator — prompts.txt
-# ─────────────────────────────────────────────────────────────────────────────
-# Fill in the fields below and delete the instructions before running app.py.
-# The AI reads this file verbatim — be specific and detailed.
-# ─────────────────────────────────────────────────────────────────────────────
+PAGE_TYPE: get_started
 
-# ── REQUIRED: Tell the tool what kind of page to generate ────────────────────
-# Options: get_started | lab_exercise
-PAGE_TYPE: lab_exercise
+LAB_TITLE: Configure Azure Blob Storage Access Tiers
+OVERALL_ESTIMATED_DURATION: 1 hour 30 minutes
 
-# ── REQUIRED: Lab identity ────────────────────────────────────────────────────
-LAB_NUMBER: 01
-LAB_TITLE: Configure Access Tier for Azure Blob Storage
-ESTIMATED_DURATION: 45 Minutes
-
-# ── REQUIRED: Lab description (plain English, as detailed as possible) ────────
-# For get_started pages  → describe the full lab series, Azure services used,
-#                           who it's for, and what learners will accomplish overall.
-# For lab_exercise pages → describe exactly what this lab does step by step,
-#                           which Azure services are provisioned, what the user
-#                           clicks, what commands are run, and the expected result.
 DESCRIPTION:
-In this lab, learners will configure the access tier of an Azure Blob Storage
-container to Archive. They will start by navigating to an existing Storage Account
-in the Azure portal, then upload a sample blob (a text file), and finally change
-the access tier of that blob from Hot to Archive using the portal UI.
-The lab demonstrates cost-optimisation strategies using Azure Storage tiering.
+This lab introduces learners to Azure Blob Storage and the concept of access tiers.
+Learners will explore how Azure Storage organises data using containers and blobs,
+and how different access tiers — Hot, Cool, Cold, and Archive — affect cost and
+retrieval performance. By the end of this lab, learners will have hands-on experience
+navigating the Azure portal to manage a storage account, uploading blobs, and
+modifying access tier settings to optimise storage costs for different data lifecycle scenarios.
 
-# ── REQUIRED for lab_exercise: Define tasks ───────────────────────────────────
-# List each task with a short title. The AI will generate full steps for each.
-# Add or remove TASK lines as needed.
-TASKS:
-  TASK_1: Navigate to the Storage Account and explore Blob containers
-  TASK_2: Upload a sample blob to the container
-  TASK_3: Change the blob access tier to Archive
+OBJECTIVES:
+  - Explore the Azure Storage Account and understand its components
+  - Upload a blob to a container using the Azure Portal
+  - Change the access tier of a blob from Hot to Archive
+  - Verify the tier change and understand its implications on retrieval
 
-# ── REQUIRED for get_started: Architecture components ────────────────────────
-# (Only fill this in for PAGE_TYPE: get_started)
-# List the Azure services / components used in the full lab series.
-# COMPONENTS:
-#   - Azure Storage Account: Stores blobs, files, queues, and tables
-#   - Azure Blob Storage: Object storage for unstructured data
-#   - Azure Portal: Web-based UI for managing Azure resources
-
-# ── OPTIONAL: Prerequisites ───────────────────────────────────────────────────
-# List any skills, tools, or prior knowledge the learner needs.
 PREREQUISITES:
-  - Basic familiarity with the Azure Portal
-  - An active Azure subscription (provided in the lab environment)
-  - No prior storage experience required
+  - Basic familiarity with the Azure Portal navigation
+  - Understanding of cloud storage concepts (optional but helpful)
+  - No prior Azure Storage experience required
+  - An active Azure subscription and lab environment credentials are pre-provisioned
 
-# ── OPTIONAL: Azure services used in this specific lab ───────────────────────
 AZURE_SERVICES:
-  - Azure Blob Storage
-  - Azure Storage Account
+  - Azure Storage Account: The core resource that hosts all storage services including blobs, files, queues, and tables
+  - Azure Blob Storage: Object storage for unstructured data such as documents, images, videos, and logs
+  - Azure Portal: The web-based management interface used throughout this lab to interact with Azure resources
 
-# ── OPTIONAL: Specific commands or scripts to include ────────────────────────
-# If blank, the AI will infer appropriate commands from the description.
-# COMMANDS:
-#   - az storage blob upload --account-name <name> --container-name <container> --name test.txt --file ./test.txt
+ARCHITECTURE_DESCRIPTION:
+The lab environment pre-provisions a single Azure Storage Account within a dedicated
+resource group. Learners interact with the storage account via the Azure Portal to
+manage blob containers and individual blobs. The access tier settings are configured
+at the blob level, demonstrating how Azure moves data between Hot, Cool, and Archive
+tiers within the same storage account without requiring data migration.
 
-# ── OPTIONAL: Notes or special instructions for the AI ───────────────────────
-# Use this for anything the AI should pay special attention to.
+COMPONENTS:
+  - Azure Resource Group: A logical container that holds all lab resources, making management and cleanup straightforward
+  - Azure Storage Account: The parent resource provisioned in the lab environment — learners do not create this, it already exists
+  - Blob Container: A logical grouping inside the storage account where blobs (files) are stored and organised
+  - Blob (Object): The individual file uploaded during the lab — a sample text file used to demonstrate tier changes
+  - Access Tier Setting: The property on each blob (Hot, Cool, Cold, Archive) that controls retrieval speed and storage cost
+
 NOTES:
-  - Use inject keys for DeploymentID and Region wherever resource names appear
-  - Include a placeholder screenshot after each major UI action
-  - The storage account already exists in the lab environment — learners do not create it
+  - The storage account is pre-provisioned — learners navigate to it, they do not create it
+  - Use inject keys for DeploymentID wherever the storage account name appears
+  - Use inject keys for Region wherever the region is referenced
+  - The architecture diagram placeholder should reflect a simple flow: Azure Portal → Resource Group → Storage Account → Blob Container → Blob
+  - This is page 1 of 2 — the lab exercise (Lab01.md) covers the actual tasks
