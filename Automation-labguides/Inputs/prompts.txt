@@ -1,50 +1,36 @@
-PAGE_TYPE: get_started
+PAGE_TYPE: lab_exercise
 
+LAB_NUMBER: 01
 LAB_TITLE: Configure Azure Blob Storage Access Tiers
-OVERALL_ESTIMATED_DURATION: 1 hour 30 minutes
+ESTIMATED_DURATION: 45 Minutes
 
 DESCRIPTION:
-This lab introduces learners to Azure Blob Storage and the concept of access tiers.
-Learners will explore how Azure Storage organises data using containers and blobs,
-and how different access tiers — Hot, Cool, Cold, and Archive — affect cost and
-retrieval performance. By the end of this lab, learners will have hands-on experience
-navigating the Azure portal to manage a storage account, uploading blobs, and
-modifying access tier settings to optimise storage costs for different data lifecycle scenarios.
+Learners will work inside a pre-provisioned Azure environment to explore Azure Blob
+Storage access tiers. They will navigate to an existing Storage Account, create a
+blob container, upload a sample text file as a blob, manually change its access tier
+from Hot to Archive using the Azure Portal, and verify the tier change via blob
+properties. The lab should reinforce the concept of cost optimisation through tiering
+and explain what Archive means in practical terms (offline, rehydration required).
 
-OBJECTIVES:
-  - Explore the Azure Storage Account and understand its components
-  - Upload a blob to a container using the Azure Portal
-  - Change the access tier of a blob from Hot to Archive
-  - Verify the tier change and understand its implications on retrieval
-
-PREREQUISITES:
-  - Basic familiarity with the Azure Portal navigation
-  - Understanding of cloud storage concepts (optional but helpful)
-  - No prior Azure Storage experience required
-  - An active Azure subscription and lab environment credentials are pre-provisioned
+TASKS:
+  TASK_1: Explore the Storage Account and Create a Blob Container
+  TASK_2: Upload a Sample Blob to the Container
+  TASK_3: Change the Blob Access Tier to Archive and Verify
 
 AZURE_SERVICES:
-  - Azure Storage Account: The core resource that hosts all storage services including blobs, files, queues, and tables
-  - Azure Blob Storage: Object storage for unstructured data such as documents, images, videos, and logs
-  - Azure Portal: The web-based management interface used throughout this lab to interact with Azure resources
+  - Azure Storage Account (General Purpose v2, pre-provisioned)
+  - Azure Blob Storage (Block Blobs only — access tiers not supported on Append or Page blobs)
 
-ARCHITECTURE_DESCRIPTION:
-The lab environment pre-provisions a single Azure Storage Account within a dedicated
-resource group. Learners interact with the storage account via the Azure Portal to
-manage blob containers and individual blobs. The access tier settings are configured
-at the blob level, demonstrating how Azure moves data between Hot, Cool, and Archive
-tiers within the same storage account without requiring data migration.
-
-COMPONENTS:
-  - Azure Resource Group: A logical container that holds all lab resources, making management and cleanup straightforward
-  - Azure Storage Account: The parent resource provisioned in the lab environment — learners do not create this, it already exists
-  - Blob Container: A logical grouping inside the storage account where blobs (files) are stored and organised
-  - Blob (Object): The individual file uploaded during the lab — a sample text file used to demonstrate tier changes
-  - Access Tier Setting: The property on each blob (Hot, Cool, Cold, Archive) that controls retrieval speed and storage cost
+PREREQUISITES:
+  - Completion of the Getting Started page
+  - Azure Portal open and signed in with lab credentials
 
 NOTES:
-  - The storage account is pre-provisioned — learners navigate to it, they do not create it
-  - Use inject keys for DeploymentID wherever the storage account name appears
-  - Use inject keys for Region wherever the region is referenced
-  - The architecture diagram placeholder should reflect a simple flow: Azure Portal → Resource Group → Storage Account → Blob Container → Blob
-  - This is page 1 of 2 — the lab exercise (Lab01.md) covers the actual tasks
+  - Storage account is already provisioned — learners navigate to it, they do NOT create it
+  - Use inject key for DeploymentID in the storage account name wherever it appears
+  - Use inject key for Region wherever region is referenced
+  - Archive tier is only supported on Block Blobs — mention this as a Note in the relevant step
+  - After setting to Archive, the blob becomes offline — mention rehydration concept briefly
+  - Include a Note that early deletion charges apply if blob is removed before 180 days
+  - Add placeholder screenshot references after each major portal action
+  - AI must reason the full detailed portal navigation steps on its own from the task descriptions

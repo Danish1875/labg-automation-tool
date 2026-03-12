@@ -1,4 +1,3 @@
-# This is where the core automation/logic will be implemented
 """
 app.py
 ------
@@ -17,11 +16,12 @@ Pipeline:
     1. Load inputs         (loader.py)
     2. Detect page type    (prompt_builder.py)
     3. Analyze images      (image_analyzer.py)   ← Phase 2 stub
-    4. Build prompts       (prompt_builder.py)
-    5. Call Azure OpenAI   (ai_client.py)
-    6. Validate output     (validator.py)         ← routes to correct validator
-    7. Save to disk        (output_writer.py)
-    8. Stage with git      (gitCommit.py)
+    4. Fetch MS Learn docs   (ms_learn.py)        ← Phase 2 enhancement
+    5. Build prompts       (prompt_builder.py)
+    6. Call Azure OpenAI   (ai_client.py)
+    7. Validate output     (validator.py)         ← routes to correct validator
+    8. Save to disk        (output_writer.py)
+    9. Stage with git      (gitCommit.py)
 """
 
 import argparse
@@ -37,6 +37,7 @@ import validator
 import output_writer
 import image_analyzer
 import gitCommit
+import ms_learn
 
 
 def parse_args():
@@ -120,41 +121,46 @@ def run(template_name=None, output_filename=None, page_type_override=None, skip_
     print("\n── Step 3: Screenshot Analysis ─────────────────────────────")
     screenshot_context = image_analyzer.analyze_screenshots(screenshot_files)
 
-    # ── Step 4: Build prompts ──────────────────────────────────────────────────
-    print("── Step 4: Building prompts ────────────────────────────────")
+    # ── Step 4: Fetch MS Learn documentation ──────────────────────────────────
+    print("\n── Step 4: Fetching MS Learn docs ──────────────────────────")
+    ms_learn_context = ms_learn.fetch_docs_context(prompt_text)
+
+    # ── Step 5: Build prompts ──────────────────────────────────────────────────
+    print("── Step 5: Building prompts ────────────────────────────────")
     system_prompt = prompt_builder.build_system_prompt(yaml_rules, page_type)
     user_prompt = prompt_builder.build_user_prompt(
         user_prompt=prompt_text,
         template_content=template_content,
         template_name=template_name_used,
         page_type=page_type,
-        screenshot_context=screenshot_context
+        screenshot_context=screenshot_context,
+        ms_learn_context=ms_learn_context
     )
     print(f"[Prompt Builder] ✅ System prompt : {len(system_prompt)} chars")
     print(f"[Prompt Builder] ✅ User prompt   : {len(user_prompt)} chars")
 
-    # ── Step 5: Call Azure OpenAI ──────────────────────────────────────────────
-    print("\n── Step 5: Calling Azure OpenAI (o4-mini) ──────────────────")
+    # ── Step 6: Call Azure OpenAI ──────────────────────────────────────────────
+    print("\n── Step 6: Calling Azure OpenAI (o4-mini) ──────────────────")
     markdown_output = ai_client.generate_lab_guide(system_prompt, user_prompt)
 
-    # ── Step 6: Validate output ────────────────────────────────────────────────
-    print("── Step 6: Validating output ───────────────────────────────")
+    # ── Step 7: Validate output ────────────────────────────────────────────────
+    print("── Step 7: Validating output ───────────────────────────────")
     validator.validate(markdown_output, yaml_rules, page_type)
 
-    # ── Step 7: Save to Labs-output/ ──────────────────────────────────────────
-    print("── Step 7: Saving output ───────────────────────────────────")
+    # ── Step 8: Save to Labs-output/ ──────────────────────────────────────────
+    print("── Step 8: Saving output ───────────────────────────────────")
     saved_path = output_writer.save(
         markdown_content=markdown_output,
         prompt_text=prompt_text,
         filename=output_filename
     )
 
-    # ── Step 8: Git staging ────────────────────────────────────────────────────
+    # ── Step 9: Git staging ────────────────────────────────────────────────────
     if not skip_commit:
-        print("── Step 8: Git staging ─────────────────────────────────────")
+        print("── Step 9: Git staging ─────────────────────────────────────")
         gitCommit.stage_file(saved_path)
     else:
-        print("── Step 8: Git staging skipped (--no-commit flag) ──────────")
+        print("── Step 9: Git staging skipped (--no-commit flag) ──────────")
 
     # ── Done ───────────────────────────────────────────────────────────────────
     print("\n" + "═" * 58)

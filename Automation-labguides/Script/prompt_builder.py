@@ -1,4 +1,6 @@
 """
+prompt_builder.py
+-----------------
 Constructs system + user prompts for Azure OpenAI based on PAGE TYPE.
 
 Two distinct prompt paths:
@@ -188,11 +190,12 @@ def build_user_prompt(
     template_content: str,
     template_name: str,
     page_type: str,
-    screenshot_context: list = None
+    screenshot_context: list = None,
+    ms_learn_context: str = ""
 ) -> str:
     """
     Build the user-facing prompt with lab description, template reference,
-    and screenshot context (Phase 2).
+    MS Learn live docs context, and screenshot context (Phase 2).
     """
     screenshot_context = screenshot_context or []
 
@@ -265,6 +268,8 @@ Mirror heading levels, callout styles, inject-key patterns, and image path forma
 Do NOT copy the lab-specific content — generate fresh content from the description above.
 
 {template_content}
+
+{ms_learn_context}
 
 {screenshot_section}
 
