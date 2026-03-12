@@ -23,6 +23,7 @@ __pycache__/
 *$py.class
 .env
 .env.*
+.autovenv
 
 # Logs and temp files
 *.log
