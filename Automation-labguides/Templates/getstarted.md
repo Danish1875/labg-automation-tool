@@ -48,7 +48,7 @@ Welcome to your Get Started with Azure OpenAI Service Workshop! We've prepared a
 
 1. Once you're ready to dive in, your virtual machine and the **Guide** will be right at your fingertips within your web browser.
 
-   ![](../media/img-01-14.png "Lab Environment")
+   ![](../Screenshot/Getting-Started/getting-started1.png)
 
 ## Virtual Machine & Lab Guide
  
@@ -58,47 +58,48 @@ Your virtual machine is your workhorse throughout the workshop. The lab guide is
 
 1. To adjust the zoom level for the environment page, click the **A↕ : 100%** icon located next to the timer in the lab environment.
 
-   ![Manage Your Virtual Machine](../media/img-01-15.png)
+   ![Manage Your Virtual Machine](../Screenshot/Getting-Started/GettingStarted-3.png)
 
 ## Exploring Your Lab Resources
  
 To get a better understanding of your lab resources and credentials, navigate to the **Environment** tab.
 
-   ![](../media/img-01-16.png)
+   ![](../Screenshot/Getting-Started/GettingStarted-0.png)
 
 ## Utilizing the Split Window Feature
  
 For your convenience, you can open the lab guide in a separate window by selecting the **Split Window** button from the top right corner.
 
-![](../media/img-01-17.png)
+![](../Screenshot/Getting-Started/split-01.png)
   
 ## Managing Your Virtual Machine
  
 Feel free to **Start, Restart, or Stop (2)** your virtual machine as needed from the **Resources (1)** tab. Your experience is in your hands!
  
-![Manage Your Virtual Machine](../media/RT1.png)
+![Manage Your Virtual Machine](../Screenshot/Getting-Started/GettingStarted-2.png)
 
 ## Let's Get Started with Azure Portal
  
 1. On your virtual machine, click on the **Azure Portal** icon as shown below:
  
-      ![Launch Azure Portal](../media/sc900-image(1).png)
+      ![Launch Azure Portal](../Screenshot/Getting-Started/GettingStarted-7.png)
     
 2. You'll see the **Sign in to continue to Microsoft Azure** tab. Here, enter your credentials:
  
    - **Email/Username:** <inject key="AzureAdUserEmail"></inject>
  
-       ![Enter Your Username](../media/sc900-image-1.png)
+       ![Enter Your Username](../Screenshot/Getting-Started/GettingStarted-4.png)
  
 3. Next, provide your password:
  
    - **Password:** <inject key="AzureAdUserPassword"></inject>
  
-       ![](../media/pwrd1.png)
+       ![](../Screenshot/Getting-Started/GettingStarted-5.png)
  
 4. In the **Stay signed in?** pop-up, click **No**.
+       
+       ![](../Screenshot/Getting-Started/GettingStarted-6.png)
 
-   ![](../media/2025-07-08(1).png)
  
 ## Support Contact
 
@@ -112,6 +113,6 @@ Learner Support Contacts:
 
 Now, click on **Next** from the lower right corner to move on to the next page.
 
-![Start Your Azure Journey](../media/nextpage1.png)
+![Start Your Azure Journey](../Screenshot/Getting-Started/nextpage1.png)
 
 ## Happy Learning!!
