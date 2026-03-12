@@ -24,6 +24,7 @@ __pycache__/
 .env
 .env.*
 .autovenv
+test_connection.py
 
 # Logs and temp files
 *.log
