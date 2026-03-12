@@ -17,7 +17,8 @@ def get_repo_root() -> str:
     Navigate from Script/ up one level to reach Automation-labguides/ root.
     All sibling folders (Inputs, Templates, Rules, etc.) live here.
     """
-    script_dir = os.path.dirname(os.path.abspath(__file__))  # .../Script/
+    modules_dir = os.path.dirname(os.path.abspath(__file__))  # .../Script/Modules/
+    script_dir  = os.path.dirname(modules_dir)                # .../Script/
     return os.path.dirname(script_dir)                        # .../Automation-labguides/
 
 

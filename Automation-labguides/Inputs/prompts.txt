@@ -1,36 +1,48 @@
 PAGE_TYPE: lab_exercise
 
 LAB_NUMBER: 01
-LAB_TITLE: Configure Azure Blob Storage Access Tiers
-ESTIMATED_DURATION: 45 Minutes
+LAB_TITLE: Deploy and Autoscale an Azure Virtual Machine Scale Set
+ESTIMATED_DURATION: 60 Minutes
 
 DESCRIPTION:
-Learners will work inside a pre-provisioned Azure environment to explore Azure Blob
-Storage access tiers. They will navigate to an existing Storage Account, create a
-blob container, upload a sample text file as a blob, manually change its access tier
-from Hot to Archive using the Azure Portal, and verify the tier change via blob
-properties. The lab should reinforce the concept of cost optimisation through tiering
-and explain what Archive means in practical terms (offline, rehydration required).
+Learners will create an Azure Virtual Machine Scale Set (VMSS) using the Azure Portal
+with Flexible orchestration mode, backed by a Standard Load Balancer. They will configure
+the scale set with a Windows Server image, set initial instance count to 2, and attach it
+to a pre-provisioned virtual network in the lab resource group. Once deployed, learners
+will configure a custom autoscale policy — a scale-out rule that adds instances when
+average CPU exceeds 70% over a 10-minute window, and a scale-in rule that removes
+instances when CPU drops below 30%. They will verify the autoscale rules are saved
+correctly and review the instance distribution across availability zones in the portal.
 
 TASKS:
-  TASK_1: Explore the Storage Account and Create a Blob Container
-  TASK_2: Upload a Sample Blob to the Container
-  TASK_3: Change the Blob Access Tier to Archive and Verify
+  TASK_1: Create a Standard Load Balancer for the Scale Set
+  TASK_2: Deploy the Virtual Machine Scale Set with Flexible Orchestration
+  TASK_3: Configure Custom Autoscale Rules (Scale-Out and Scale-In)
+  TASK_4: Verify Instance Distribution and Review the Scale Set Overview
 
 AZURE_SERVICES:
-  - Azure Storage Account (General Purpose v2, pre-provisioned)
-  - Azure Blob Storage (Block Blobs only — access tiers not supported on Append or Page blobs)
+  - Azure Virtual Machine Scale Set: Deploys and manages a group of load-balanced, autoscaling VMs using Flexible orchestration mode
+  - Azure Load Balancer (Standard): Distributes incoming traffic across VM instances in the scale set at Layer 4
+  - Azure Virtual Network: Pre-provisioned in the lab — scale set NICs are attached to this network
+  - Azure Monitor Autoscale: Defines CPU-based scale-out and scale-in rules with cooldown periods
 
 PREREQUISITES:
   - Completion of the Getting Started page
   - Azure Portal open and signed in with lab credentials
+  - Pre-provisioned resource group and virtual network available in the lab environment
 
 NOTES:
-  - Storage account is already provisioned — learners navigate to it, they do NOT create it
-  - Use inject key for DeploymentID in the storage account name wherever it appears
+  - Resource group and VNet are pre-provisioned — learners do NOT create them
+  - Use inject key for DeploymentID wherever resource names appear (e.g. vmss-<DeploymentID>)
   - Use inject key for Region wherever region is referenced
-  - Archive tier is only supported on Block Blobs — mention this as a Note in the relevant step
-  - After setting to Archive, the blob becomes offline — mention rehydration concept briefly
-  - Include a Note that early deletion charges apply if blob is removed before 180 days
+  - Orchestration mode must be Flexible — not Uniform — as Flexible is the current recommended default
+  - Security type should be set to Trusted Launch Virtual Machines
+  - Load Balancer must be created BEFORE the VMSS so it can be selected during VMSS creation
+  - Scale-out rule: CPU > 70% over 10 minutes → increase instance count by 20%
+  - Scale-in rule: CPU < 30% over 10 minutes → decrease instance count by 20%
+  - Autoscale profile minimum instances: 2, maximum: 10, default: 2
+  - Cooldown period for both rules: 5 minutes
+  - AI must reason all detailed portal navigation steps from the task descriptions above
+  - Include a Note about overprovision being disabled by default in Flexible mode
+  - Include a Note that scale-in may cause running tasks to stop abruptly after cooldown
   - Add placeholder screenshot references after each major portal action
-  - AI must reason the full detailed portal navigation steps on its own from the task descriptions

@@ -28,7 +28,9 @@ import argparse
 import sys
 import os
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
+MODULES_DIR = os.path.join(SCRIPT_DIR, "Modules")          
+sys.path.insert(0, MODULES_DIR)
 
 import loader
 import prompt_builder

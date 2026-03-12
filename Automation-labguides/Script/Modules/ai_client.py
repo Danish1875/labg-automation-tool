@@ -23,7 +23,8 @@ def load_client() -> tuple:
     (AzureOpenAI client, deployment_name).
     """
     # Load .env from the same Script/ directory as this file
-    env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+    _this_dir = os.path.dirname(os.path.abspath(__file__))
+    env_path  = os.path.join(os.path.dirname(_this_dir), ".env")
     load_dotenv(dotenv_path=env_path)
 
     endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")

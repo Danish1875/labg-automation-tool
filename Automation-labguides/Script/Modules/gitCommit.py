@@ -18,8 +18,9 @@ import sys
 
 
 def get_repo_root() -> str:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.dirname(script_dir)
+    modules_dir = os.path.dirname(os.path.abspath(__file__))  # .../Script/Modules/
+    script_dir  = os.path.dirname(modules_dir)                # .../Script/
+    return os.path.dirname(script_dir) 
 
 
 def _run(cmd: list, cwd: str) -> tuple:

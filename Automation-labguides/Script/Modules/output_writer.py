@@ -25,7 +25,8 @@ import re
 
 
 def get_repo_root() -> str:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    modules_dir = os.path.dirname(os.path.abspath(__file__))
+    script_dir  = os.path.dirname(modules_dir)                
     return os.path.dirname(script_dir)
 
 
