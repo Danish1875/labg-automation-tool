@@ -1,0 +1,68 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# CloudLabs Lab Guide Generator — prompts.txt
+# ─────────────────────────────────────────────────────────────────────────────
+# Fill in the fields below and delete the instructions before running app.py.
+# The AI reads this file verbatim — be specific and detailed.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── REQUIRED: Tell the tool what kind of page to generate ────────────────────
+# Options: get_started | lab_exercise
+PAGE_TYPE: lab_exercise
+
+# ── REQUIRED: Lab identity ────────────────────────────────────────────────────
+LAB_NUMBER: 01
+LAB_TITLE: Configure Access Tier for Azure Blob Storage
+ESTIMATED_DURATION: 45 Minutes
+
+# ── REQUIRED: Lab description (plain English, as detailed as possible) ────────
+# For get_started pages  → describe the full lab series, Azure services used,
+#                           who it's for, and what learners will accomplish overall.
+# For lab_exercise pages → describe exactly what this lab does step by step,
+#                           which Azure services are provisioned, what the user
+#                           clicks, what commands are run, and the expected result.
+DESCRIPTION:
+In this lab, learners will configure the access tier of an Azure Blob Storage
+container to Archive. They will start by navigating to an existing Storage Account
+in the Azure portal, then upload a sample blob (a text file), and finally change
+the access tier of that blob from Hot to Archive using the portal UI.
+The lab demonstrates cost-optimisation strategies using Azure Storage tiering.
+
+# ── REQUIRED for lab_exercise: Define tasks ───────────────────────────────────
+# List each task with a short title. The AI will generate full steps for each.
+# Add or remove TASK lines as needed.
+TASKS:
+  TASK_1: Navigate to the Storage Account and explore Blob containers
+  TASK_2: Upload a sample blob to the container
+  TASK_3: Change the blob access tier to Archive
+
+# ── REQUIRED for get_started: Architecture components ────────────────────────
+# (Only fill this in for PAGE_TYPE: get_started)
+# List the Azure services / components used in the full lab series.
+# COMPONENTS:
+#   - Azure Storage Account: Stores blobs, files, queues, and tables
+#   - Azure Blob Storage: Object storage for unstructured data
+#   - Azure Portal: Web-based UI for managing Azure resources
+
+# ── OPTIONAL: Prerequisites ───────────────────────────────────────────────────
+# List any skills, tools, or prior knowledge the learner needs.
+PREREQUISITES:
+  - Basic familiarity with the Azure Portal
+  - An active Azure subscription (provided in the lab environment)
+  - No prior storage experience required
+
+# ── OPTIONAL: Azure services used in this specific lab ───────────────────────
+AZURE_SERVICES:
+  - Azure Blob Storage
+  - Azure Storage Account
+
+# ── OPTIONAL: Specific commands or scripts to include ────────────────────────
+# If blank, the AI will infer appropriate commands from the description.
+# COMMANDS:
+#   - az storage blob upload --account-name <name> --container-name <container> --name test.txt --file ./test.txt
+
+# ── OPTIONAL: Notes or special instructions for the AI ───────────────────────
+# Use this for anything the AI should pay special attention to.
+NOTES:
+  - Use inject keys for DeploymentID and Region wherever resource names appear
+  - Include a placeholder screenshot after each major UI action
+  - The storage account already exists in the lab environment — learners do not create it

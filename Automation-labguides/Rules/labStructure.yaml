@@ -1,42 +1,128 @@
-# The biggest reliability improvement will come from YAML validation, not prompting the AI.
-
-# LLMs follow structure 70–80% of the time, but validation makes it close to deterministic.
+# labStructure.yaml
+# ─────────────────────────────────────────────────────────────
+# Defines structural rules for two distinct page types:
+#
+#   1. get_started  → The first page of every lab (overview, architecture, env setup)
+#   2. lab_exercise → Lab01.md, Lab02.md, etc. (tasks, steps, code, validation)
+#
+# The validator reads page_type from the generated content and applies
+# only the relevant rule set. Both are soft-warn (non-blocking).
+# ─────────────────────────────────────────────────────────────
 
 lab_metadata:
   required: true
   fields:
     title: true
-    difficulty: true
-    duration: true
+    estimated_duration: true
     author: false
 
-sections:
+# ──────────────────────────────────────────────────────────────
+# PAGE TYPE 1: Getting Started Page (getStarted.md)
+# ──────────────────────────────────────────────────────────────
+get_started:
+
+  # Sections AI must generate (dynamic content)
+  ai_generated_sections:
+    required_order:
+      - Overview
+      - Objectives
+      - Pre-requisites
+      - Architecture
+      - Architecture Diagram
+      - Explanation of Components
+
+  # Sections copied verbatim from the getstarted.md template (static boilerplate)
+  # AI should NOT regenerate these — they are platform standard and must match exactly
+  static_sections:
+    note: >
+      The following sections are standard CloudLabs boilerplate.
+      Copy them exactly from Templates/getstarted.md without modification.
+    sections:
+      - Getting Started with Lab
+      - Accessing Your Lab Environment
+      - Lab Guide Zoom In/Zoom Out
+      - Virtual Machine & Lab Guide
+      - Exploring Your Lab Resources
+      - Utilizing the Split Window Feature
+      - Managing Your Virtual Machine
+      - Let's Get Started with Azure Portal
+      - Support Contact
+
+  validation_rules:
+    require_overview: true
+    require_objectives: true
+    require_prerequisites: true
+    require_architecture_section: true
+    require_architecture_diagram: true
+    require_explanation_of_components: true
+    static_sections_must_appear: true
+    no_task_blocks_allowed: true        # Tasks belong in lab_exercise pages only
+    no_validation_guid_blocks: true     # <validation step="..."> not used on this page
+
+  images:
+    allowed: true
+    path: "../media/"
+    format: png
+    architecture_diagram_required: true
+
+# ──────────────────────────────────────────────────────────────
+# PAGE TYPE 2: Lab Exercise Page (Lab01.md, Lab02.md, ...)
+# ──────────────────────────────────────────────────────────────
+lab_exercise:
+
   required_order:
-    - Objective
-    - Prerequisites
-    - Steps
-    - Validation
+    - Lab Overview
+    - Lab Objectives
+    - Tasks             # One or more Task sections follow Lab Objectives
 
-steps:
-  numbering: true
-  minimum_steps: 1
-  screenshot_required: false
+  task_structure:
+    heading_format: "Task {N}: {Descriptive Title}"   # e.g. Task 1: Provision Storage Account
+    minimum_tasks: 1
+    steps:
+      numbering: true                  # Steps must use 1. 2. 3. format
+      minimum_steps_per_task: 1
+      require_descriptive_step_titles: true
 
-code_blocks:
-  enabled: true
-  allowed_languages:
-    - bash
-    - powershell
-    - azurecli
-    - json
-    - python
-    - C#
+  validation_rules:
+    require_lab_overview: true
+    require_lab_objectives: true
+    require_tasks: true
+    require_validation_block_per_task: true     # <validation step="GUID" /> after each task
+    require_summary_section: true               # ## Summary at end of file
+    require_code_block_for_cli_steps: true
+    no_architecture_section: true               # Architecture belongs in getStarted only
 
-images:
-  allowed: true
-  path: "../assets/"
-  format: png
+  code_blocks:
+    enabled: true
+    allowed_languages:
+      - bash
+      - powershell
+      - azurecli
+      - json
+      - python
+      - C#
 
-validation_rules:
-  require_code_block_for_cli_steps: true
-  require_descriptive_step_titles: true
+  images:
+    allowed: true
+    path: "../Assets-img-md/"
+    format: png
+    screenshot_required: false         # Encouraged but not enforced
+
+  callouts:
+    note_format: "> **Note:**"
+    congratulations_format: "> **Congratulations**"
+    validation_tag_format: '<validation step="GUID-PLACEHOLDER" />'
+
+# ──────────────────────────────────────────────────────────────
+# SHARED STYLE RULES (apply to both page types)
+# ──────────────────────────────────────────────────────────────
+shared:
+  ui_elements:
+    bold_format: "**Element Name**"           # Buttons, tabs, blades the user clicks
+    inline_code_format: "`value to type`"     # Values the user types in fields
+  inject_keys:
+    deployment_id: '<inject key="DeploymentID" enableCopy="false"></inject>'
+    region: '<inject key="Region" enableCopy="false"></inject>'
+    user_email: '<inject key="AzureAdUserEmail"></inject>'
+    user_password: '<inject key="AzureAdUserPassword"></inject>'
+  image_reference_format: "![](../media/image-name.png)"

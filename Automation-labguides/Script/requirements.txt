@@ -1,0 +1,8 @@
+# CloudLabs AI Lab Guide Generator — Python dependencies
+openai>=1.66.0
+
+# Load credentials from Script/.env file
+python-dotenv>=1.0.0
+
+# Parse Rules/labStructure.yaml
+PyYAML>=6.0
