@@ -1,6 +1,5 @@
 # AI-Powered Lab Guide Generation – Problem Statement
-
-## Background
+## Background Information
 
 Cloud-based learning platforms often rely on **step-by-step lab guides** to help users perform tasks such as creating resources, configuring services, or testing applications. These guides are typically written in **Markdown format** so they can be easily rendered on web platforms or documentation systems.
 
