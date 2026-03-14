@@ -94,11 +94,11 @@ Feel free to **Start, Restart, or Stop (2)** your virtual machine as needed from
  
    - **Password:** <inject key="AzureAdUserPassword"></inject>
  
-       ![](../Screenshot/Getting-Started/GettingStarted-5.png)
+      ![](../Screenshot/Getting-Started/GettingStarted-5.png)
  
 4. In the **Stay signed in?** pop-up, click **No**.
        
-       ![](../Screenshot/Getting-Started/GettingStarted-6.png)
+      ![](../Screenshot/Getting-Started/GettingStarted-6.png)
 
  
 ## Support Contact
