@@ -32,14 +32,14 @@ SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
 MODULES_DIR = os.path.join(SCRIPT_DIR, "Modules")          
 sys.path.insert(0, MODULES_DIR)
 
-import loader
-import prompt_builder
-import ai_client
-import validator
-import output_writer
-import image_analyzer
-import gitCommit
-import ms_learn
+from Modules import loader
+from Modules import prompt_builder
+from Modules import ai_client
+from Modules import validator
+from Modules import output_writer
+from Modules import image_analyzer
+from Modules import gitCommit
+from Modules import ms_learn
 
 
 def parse_args():
