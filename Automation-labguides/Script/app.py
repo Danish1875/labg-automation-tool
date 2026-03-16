@@ -15,11 +15,11 @@ Optional arguments:
 Pipeline:
     1. Load inputs         (loader.py)
     2. Detect page type    (prompt_builder.py)
-    3. Analyze images      (image_analyzer.py)   ← Phase 2 stub
-    4. Fetch MS Learn docs   (ms_learn.py)        ← Phase 2 enhancement
+    3. Analyze images      (image_analyzer.py)
+    4. Fetch MS Learn docs   (ms_learn.py)
     5. Build prompts       (prompt_builder.py)
     6. Call Azure OpenAI   (ai_client.py)
-    7. Validate output     (validator.py)         ← routes to correct validator
+    7. Validate output     (validator.py)      
     8. Save to disk        (output_writer.py)
     9. Stage with git      (gitCommit.py)
 """
