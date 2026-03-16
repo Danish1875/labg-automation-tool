@@ -14,8 +14,8 @@ import yaml
 
 def get_repo_root() -> str:
     """
-    Navigate from Script/ up one level to reach Automation-labguides/ root.
-    All sibling folders (Inputs, Templates, Rules, etc.) live here.
+    Navigate from Script/Modules/ up two levels to reach Automation-labguides/ root.
+    All sibling folders (Inputs, Templates, Rules, etc.) live there.
     """
     modules_dir = os.path.dirname(os.path.abspath(__file__))  # .../Script/Modules/
     script_dir  = os.path.dirname(modules_dir)                # .../Script/
@@ -94,31 +94,40 @@ def load_yaml_rules(filename: str = "labStructure.yaml") -> dict:
     return rules
 
 
-def load_screenshots() -> list:
+def load_screenshots(prompt_text: str = "") -> list:
     """
-    PHASE 2 STUB — Screenshot analysis not yet implemented.
+    Scans Screenshot/<lab_folder>/ for images.
+    The folder name is read from SCREENSHOT_FOLDER in prompts.txt.
 
-    When active, this will:
-      1. Scan Screenshot/ for .png files
-      2. Sort them by filename (numeric order matches click sequence)
-      3. Pass each image to image_analyzer.py for Azure Vision / GPT-4o analysis
-      4. Return ordered list of { filename, description, step_number }
-
-    For now, returns an empty list so the pipeline continues unaffected.
+    Returns sorted list of absolute image paths.
+    Returns [] if no folder specified or folder is empty.
     """
-    root = get_repo_root()
-    screenshot_dir = os.path.join(root, "Screenshot")
+    import re as _re
 
-    png_files = sorted([
-        f for f in os.listdir(screenshot_dir)
-        if f.lower().endswith(".png")
+    # Read SCREENSHOT_FOLDER from prompt
+    match = _re.search(r"SCREENSHOT_FOLDER\s*:\s*(\S+)", prompt_text, _re.IGNORECASE)
+    if not match:
+        print("[Loader] 📸 No SCREENSHOT_FOLDER defined in prompts.txt — skipping screenshots.")
+        return []
+
+    lab_folder = match.group(1).strip()
+    root       = get_repo_root()
+    folder_path = os.path.join(root, "Screenshot", lab_folder)
+
+    if not os.path.exists(folder_path):
+        print(f"[Loader] 📸 Screenshot folder not found: Screenshot/{lab_folder}/ — skipping.")
+        return []
+
+    valid_exts = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
+    files = sorted([
+        os.path.join(folder_path, f)
+        for f in os.listdir(folder_path)
+        if os.path.splitext(f)[1].lower() in valid_exts
     ])
 
-    if png_files:
-        print(f"[Loader] 📸 {len(png_files)} screenshot(s) found — image analysis coming in Phase 2.")
-        print(f"         Files detected: {png_files}")
+    if files:
+        print(f"[Loader] 📸 {len(files)} screenshot(s) found in Screenshot/{lab_folder}/")
     else:
-        print("[Loader] 📸 No screenshots found in Screenshot/ — skipping image analysis.")
+        print(f"[Loader] 📸 Screenshot/{lab_folder}/ is empty — skipping image analysis.")
 
-    # Returns empty list — image_analyzer.py will populate this in Phase 2
-    return []
+    return files
